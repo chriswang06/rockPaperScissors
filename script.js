@@ -1,59 +1,36 @@
-let pChoice;
-let cpuChoice;
 
-function getPlayerChoice(){
-    let ans = prompt("Pick: rock, paper, scissors");
-    ans = ans.toLowerCase();
-    if( ans == "rock"){
-        pChoice = 1;
+// // playGame(1, getComputerChoice())
+// rock.addEventListener('click', playGame(1, getComputerChoice()));
+rock.addEventListener('click', function (e) {
+    console.log(playRound(1));
+  });
+paper.addEventListener('click', function (e) {
+    console.log(playRound(2));
+  });
+scissors.addEventListener('click', function (e) {
+    console.log(playRound(3));
+  });
+
+function playRound(pChoice){
+    cpu = getcpu();
+    if((pChoice==1&&cpu==1)||(pChoice==2&&cpu==2)||(pChoice==2&&cpu==2)){
+        const container = document.querySelector('.ties');
+        const p = document.createElement('p');
+        container.textContent += " | ";
+        return 1; //tie
     }
-    else if (ans == "scissors"||ans == "scissor"){
-        pChoice = 2;
+    else if((pChoice==1&&cpu==3)||(pChoice==2&&cpu==1)||(pChoice==3&&cpu==2)){
+        const container = document.querySelector('.wins');
+        container.textContent += " | ";
+        return 2; //win
     }
-    else if (ans == "rock"){
-        pChoice = 3;
+    else{ 
+        const container = document.querySelector('.losses');
+        const p = document.createElement('p');
+        container.textContent += " | ";
+        return 3 //lose}
     }
-    else{
-        console.log("that is not a right answer choice");
-        getPlayerChoice();
-    }
-    return pChoice;
-}
-function translate(choice){
-    if(choice == 1){
-        return "rock";
-    }
-    else if (choice == 2){
-        return "scissor";
-    }
-    else if ( choice == 3){
-        return "paper";
-    }
-}
-function calculate(pChoice, cpuChoice){
-    if ((pChoice==1 && cpuChoice==1)||(pChoice==2&&cpuChoice==2)||(pChoice==3&&cpuChoice==3)){
-        console.log("you tied.");
-    }
-    else if ((pChoice==1&&cpuChoice==2)||(pChoice==2&&cpuChoice==3)||(pChoice==3&&cpuChoice==1)){
-        console.log("you won.");
-    }
-    else{
-        console.log("you lost.");
-    }
-}
-function announce(pChoice, cpuChoice){
-    console.log("You picked: " + translate(pChoice) + ". The computer picked: " + translate(cpuChoice) + ".");
-}
-function getComputerChoice(){
-    let cpuChoice = Math.floor(1+Math.random()*3);
-    return cpuChoice;
-}
-function playGame(){
-    for(let i = 0; i < 5; i++){
-    console.log("Welcome to rock paper scissors!");
-    cpuChoice = getComputerChoice();
-    pChoice = getPlayerChoice();
-    announce(pChoice, cpuChoice);
-    calculate(pChoice, cpuChoice);
-    }
-}
+  }
+function getcpu() {
+    return Math.floor(Math.random() * 3) + 1;
+  }
